@@ -1,0 +1,12 @@
+### Register
+@baseUrl = http://localhost:8000
+
+POST {{baseUrl}}/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Trần Văn Đạt",
+    "phone": "0121211212",
+    "email": "tranvandatevondev0503+1@gmail.com",
+    "password": "123123Scss"
+}

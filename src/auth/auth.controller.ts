@@ -1,10 +1,17 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { AuthPayloadDto } from './dto/auth.dto';
+import { LoginDto, RegisterDto } from './dto/auth.dto';
+import { AuthService } from './auth.service';
+import { User } from '@prisma/client';
 
 @Controller('auth')
 export class AuthController {
+  constructor(private authService: AuthService) { }
+  @Post('register')
+  register(@Body() body: RegisterDto): Promise<User> {
+    return this.authService.register(body);
+  }
   @Post('login')
-  login(@Body() authPayloadDto: AuthPayloadDto) {
-    return authPayloadDto.email;
+  login(@Body() body: LoginDto): Promise<any> {
+    return this.authService.login(body);
   }
 }
