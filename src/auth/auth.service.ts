@@ -4,6 +4,7 @@ import { PrismaService } from 'src/prisma.service';
 import { RegisterDto } from './dto/auth.dto';
 import { User } from '@prisma/client';
 import { compare, hash } from 'bcrypt';
+import envConfig from 'src/utils/config';
 
 export interface TokenType {
     accessToken: string;
@@ -70,11 +71,11 @@ export class AuthService {
 
         const payload = { id: user.id, name: user.name, email: user.email };
         const accessToken = await this.jwtService.signAsync(payload, {
-            secret: process.env.SECRET_ACCESS_TOKEN_KEY,
+            secret: envConfig.ACCESS_TOKEN_SECRET_KEY,
             expiresIn: '7m'
         });
         const refreshToken = await this.jwtService.signAsync(payload, {
-            secret: process.env.SECRET_REFRESH_TOKEN_KEY,
+            secret: envConfig.REFRESH_TOKEN_SECRET_KEY,
             expiresIn: '7d'
         });
 
