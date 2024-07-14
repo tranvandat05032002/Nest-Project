@@ -36,8 +36,8 @@ model Post {
   categoryId Int
 }
 model Category {
-  id Int @id @default(autoincrement())
-  name String
+  id Int @default(autoincrement()) @id
+  name String @unique
   description String
   post Post[]
   created_at DateTime @default(now())
