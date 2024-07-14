@@ -1,0 +1,14 @@
+### Register
+@baseUrl = http://localhost:8000
+
+POST {{baseUrl}}/posts/add HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "Fullstack",
+    "summary": "Hoạt động",
+    "content": "Hoạt động dầu tiên về fullstack",
+    "status": 1,
+    "ownerId": 1,
+    "categoryId": 1
+}

@@ -8,8 +8,7 @@ export class CreatePostsDto {
   content: string;
   status: number;
 
-  @IsNotEmpty()
-  ownerId: number;
+  ownerId: number; // decoded_auth
 
   @IsNotEmpty()
   categoryId: number;

@@ -5,18 +5,14 @@ import { RegisterDto } from './dto/auth.dto';
 import { User } from '@prisma/client';
 import { compare, hash } from 'bcrypt';
 import envConfig from 'src/utils/config';
+import { TokenType } from 'src/types/jwt.types';
 
-export interface TokenType {
-    accessToken: string;
-    refreshToken: string;
-}
 @Injectable()
 export class AuthService {
     constructor(
         private prismaService: PrismaService,
         private jwtService: JwtService
     ) { }
-
     async register(userData: RegisterDto): Promise<User> {
         // Kiểm tra email đã tồn tại trong database chưa
         const user = await this.prismaService.user.findUnique({
@@ -44,7 +40,7 @@ export class AuthService {
         return res;
     }
 
-    async login(data: { email: string; password: string }): Promise<any> {
+    async login(data: { email: string; password: string }): Promise<TokenType> {
         const user = await this.prismaService.user.findUnique({
             where: {
                 email: data.email

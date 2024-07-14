@@ -34,6 +34,8 @@ model Post {
   ownerId Int
   category Category @relation(fields: [categoryId], references: [id])
   categoryId Int
+  created_at DateTime @default(now())
+  updated_at DateTime? @updatedAt
 }
 model Category {
   id Int @default(autoincrement()) @id

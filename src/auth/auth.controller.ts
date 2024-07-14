@@ -1,7 +1,9 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Res } from '@nestjs/common';
 import { LoginDto, RegisterDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 import { User } from '@prisma/client';
+import { Response } from 'express';
+import envConfig from 'src/utils/config';
 
 @Controller('auth')
 export class AuthController {
@@ -11,7 +13,18 @@ export class AuthController {
     return this.authService.register(body);
   }
   @Post('login')
-  login(@Body() body: LoginDto): Promise<any> {
-    return this.authService.login(body);
+  async login(@Body() body: LoginDto, @Res() res: Response) {
+    const { accessToken, refreshToken } = await this.authService.login(body)
+    res.cookie('refreshToken', refreshToken, {
+      path: '/',
+      httpOnly: true,
+      secure: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000, //7d
+      domain: envConfig.DOMAIN
+    })
+    return res.send({
+      accessToken,
+      refreshToken
+    });
   }
 }
