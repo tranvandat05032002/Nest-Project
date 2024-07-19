@@ -80,4 +80,10 @@ export class AuthService {
             refreshToken
         };
     }
+    async findOne(id: number) {
+        return {
+            message: "find success!",
+            id
+        }
+    }
 }

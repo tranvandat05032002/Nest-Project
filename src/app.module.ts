@@ -4,8 +4,8 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
 import { CategoriesModule } from './categories/categories.module';
-import { UserIdentifierMiddleware } from './user-identifier/user-identifier.middleware';
 import { JwtService } from '@nestjs/jwt';
+import { UserIdentifierMiddleware } from './common/decorator/user-identifier.middleware';
 
 @Module({
   imports: [AuthModule, PostsModule, CategoriesModule],

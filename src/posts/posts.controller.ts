@@ -2,7 +2,7 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { CreatePostsDto } from './dto/post.dto';
 import { Post as PostModel } from '@prisma/client';
 import { PostsService } from './posts.service';
-import { UserDecodedAuthorization } from 'src/user-identifier/user-identifier.decorator';
+import { UserDecodedAuthorization } from 'src/common/decorator/user-identifier.decorator';
 import { TokenPayload } from 'src/types/jwt.types';
 
 @Controller('posts')
