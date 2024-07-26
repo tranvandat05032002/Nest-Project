@@ -16,7 +16,7 @@ Content-Type: application/json
 
 {
     "email": "tranvandatevondev0503@gmail.com",
-    "password": "123123Scs"
+    "password": "123123Scss"
 }
 ###
 GET {{baseUrl}}/auth/1 HTTP/1.1

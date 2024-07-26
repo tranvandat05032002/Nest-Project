@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Param, Post, Res, UseFilters } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, Res, UseFilters } from '@nestjs/common';
 import { LoginDto, RegisterDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 import { User } from '@prisma/client';
@@ -30,9 +30,5 @@ export class AuthController {
       accessToken,
       refreshToken
     });
-  }
-  @Get(':id')
-  async findUser(@Param('id', new ParseIntPipe()) id: number) {
-    return this.authService.findOne(id)
   }
 }

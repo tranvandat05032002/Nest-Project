@@ -6,9 +6,10 @@ import { PostsModule } from './posts/posts.module';
 import { CategoriesModule } from './categories/categories.module';
 import { JwtService } from '@nestjs/jwt';
 import { UserIdentifierMiddleware } from './common/decorator/user-identifier.middleware';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
-  imports: [AuthModule, PostsModule, CategoriesModule],
+  imports: [AuthModule, PostsModule, CategoriesModule, ChatModule],
   controllers: [AppController],
   providers: [AppService, JwtService],
 })

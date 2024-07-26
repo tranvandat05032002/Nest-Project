@@ -1,15 +1,4 @@
-// import fs from 'fs'
-// import path from 'path'
 import z from 'zod'
-// const checkEnv = async () => {
-//     const chalk = (await import('chalk')).default
-//     if (!fs.existsSync(path.resolve('.env'))) {
-//         console.log(chalk.red(`Không tìm thấy file môi trường .env`))
-//         process.exit(1)
-//     }
-// }
-// checkEnv()
-
 const configSchema = z.object({
     PORT: z.coerce.number().default(8000),
     DATABASE_URL: z.string(),
@@ -20,10 +9,23 @@ const configSchema = z.object({
     DOMAIN: z.string(),
     PROTOCOL: z.string(),
 })
-const configServer = configSchema.safeParse(process.env)
+const configServer = configSchema.safeParse({
+    PORT: process.env.PORT,
+    DATABASE_URL: process.env.DATABASE_URL,
+    ACCESS_TOKEN_SECRET_KEY: process.env.ACCESS_TOKEN_SECRET_KEY,
+    ACCESS_TOKEN_EXPIRES_ID: process.env.ACCESS_TOKEN_EXPIRES_ID,
+    REFRESH_TOKEN_SECRET_KEY: process.env.REFRESH_TOKEN_SECRET_KEY,
+    REFRESH_TOKEN_EXPIRES_ID: process.env.REFRESH_TOKEN_EXPIRES_ID,
+    DOMAIN: process.env.DOMAIN,
+    PROTOCOL: process.env.PROTOCOL
+})
 if (!configServer.success) {
-    console.error(configServer.error.issues)
-    throw new Error('Các giá trị khai báo trong file .env không hợp lệ')
+    const errorDetails = configServer.error.issues
+    errorDetails.forEach((issue) => {
+        console.log(`Key: ${issue.path[0]}, Error: ${issue.message}`)
+        throw new Error(`Key: ${issue.path[0]}, Error: ${issue.message} ---> KEY không hợp lệ hoặc 
+                        không tồn tại`)
+    })
 }
 const envConfig = configServer.data
 export const API_URL = `${envConfig.PROTOCOL}://${envConfig.DOMAIN}:${envConfig.PORT}`
