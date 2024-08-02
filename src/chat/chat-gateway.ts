@@ -11,7 +11,7 @@ import { Server, Socket } from 'socket.io'
 //         origin: '*' // chấp nhận mọi port từ client kết nối đến server
 //     }
 // })
-@WebSocketGateway(4002, {
+@WebSocketGateway(8080, {
     cors: {
         origin: '*'
     }
